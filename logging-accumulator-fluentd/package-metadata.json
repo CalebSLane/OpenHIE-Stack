@@ -1,0 +1,17 @@
+{
+  "id": "logging-accumulator-fluentd",
+  "name": "Loggin Accumulator Fluentd",
+  "description": "A service to accumulate logs from many sources",
+  "type": "infrastructure",
+  "version": "0.0.1",
+  "dependencies": ["analytics-datastore-elastic-search"],
+  "environmentVariables": {
+    "FLUENTD_INSTANCES": 1,
+    "ES_LEADER_NODE": "analytics-datastore-elastic-search",
+    "FLUENTD_ES_PASSWORD": "dev_password_only",
+    "FLUENTD_ES_USERNAME": "elastic",
+    "FLUENTD_MEMORY_LIMIT": "3G",
+    "FLUENTD_MEMORY_RESERVE": "500M",
+    "CLUSTERED_MODE": "false"
+  }
+}

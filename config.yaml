@@ -1,0 +1,33 @@
+projectName: OpenHIE
+image: ctsteele/openhie
+logPath: /tmp/logs
+
+packages:
+    # - reverse-proxy-nginx
+    # - dashboard-visualiser-kibana
+    # - analytics-datastore-elastic-search
+    
+customPackages:
+    - id: reverse-proxy-nginx
+      path: ./reverse-proxy-nginx
+    - id: analytics-datastore-elastic-search
+      path: ./analytics-datastore-elastic-search
+    - id: dashboard-visualiser-kibana
+      path: ./dashboard-visualiser-kibana
+    - id: fhir-datastore-hapi-fhir
+      path: ./fhir-datastore-hapi-fhir
+    - id: filebeat
+      path: ./filebeat
+
+profiles:
+    - name: single-node
+      packages:
+        - reverse-proxy-nginx
+        - dashboard-visualiser-kibana
+        - analytics-datastore-elastic-search
+        - filebeat
+        - fhir-datastore-hapi-fhir
+      envFiles:
+        - .env
+      dev: false
+      only: false
