@@ -42,8 +42,6 @@
 
 ## Run project unsecured
 
-```sudo mkdir /backups```
-
 ``` sudo instant project init && sudo instant project up --env-var INSECURE_PORTS=3100:3100```
 
 
