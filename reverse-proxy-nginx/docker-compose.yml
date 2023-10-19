@@ -4,6 +4,8 @@ services:
   # Proxies requests to internal services
   reverse-proxy-nginx:
     image: nginx:stable
+    volumes:
+      - /loki/.htpasswd:/loki/.htpasswd
     networks:
       public:
     deploy:
