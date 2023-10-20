@@ -45,13 +45,44 @@
 ``` sudo instant project init && sudo instant project up --env-var INSECURE_PORTS=3100:3100```
 
 
+## Run project secured with [staging certs](https://letsencrypt.org/docs/staging-environment/)
+
+- Edit .env to have the following entries
+
+```
+INSECURE=false
+RENEWAL_EMAIL=<email>
+DOMAIN_NAME=<server-address>
+SUBDOMAINS=grafana.<server-address>,loki.<server-address>
+```
+- init project
+  
+``` sudo instant project init --env-file .env ```
+
+
+## Run project secured with real certs
+
+- Edit .env to have the following entries
+
+```
+INSECURE=false
+STAGING=false
+RENEWAL_EMAIL=<email>
+DOMAIN_NAME=<server-address>
+SUBDOMAINS=grafana.<server-address>,loki.<server-address>
+```
+- init project
+  
+``` sudo instant project init --env-file .env ```
+
+
 # Connecting Docker logging from remote machines
 
 ## [Install Grafana-Loki log driver in Docker]( https://grafana.com/docs/loki/latest/send-data/docker-driver/)
 
-```docker plugin install grafana/loki-docker-driver:2.9.1 --alias loki --grant-all-permissions```
+```sudo docker plugin install grafana/loki-docker-driver:2.9.1 --alias loki --grant-all-permissions```
 
-```systemctl restart docker```
+```sudo systemctl restart docker```
 
 ## [Specify log driver](https://grafana.com/docs/loki/latest/send-data/docker-driver/configuration/)
 
@@ -59,7 +90,7 @@
 
 ```
 docker run --log-driver=loki 
-    --log-opt loki-url="http://<user_id>:<password>@<central-logging-server-address>:3100/loki/api/v1/push" \
+    --log-opt loki-url="https://<user_id>:<password>@<central-logging-server-address>/loki/api/v1/push" \
     <image>
 ```
 
@@ -71,7 +102,7 @@ docker run --log-driver=loki
     logging:
       driver: loki
       options:
-        loki-url: "http://<user_id>:<password>@<central-logging-server-address>:3100/loki/api/v1/push"
+        loki-url: "https://<user_id>:<password>@<central-logging-server-address>/loki/api/v1/push"
 ```
 
 
@@ -83,7 +114,7 @@ docker run --log-driver=loki
     "debug" : true,
     "log-driver": "loki",
     "log-opts": {
-        "loki-url": "http://<user_id>:<password>@<central-logging-server-address>:3100/loki/api/v1/push",
+        "loki-url": "https://<user_id>:<password>@<central-logging-server-address>/loki/api/v1/push",
     }
   }
   ```
