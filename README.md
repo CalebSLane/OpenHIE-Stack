@@ -47,6 +47,12 @@
 
 ## Run project secured with [staging certs](https://letsencrypt.org/docs/staging-environment/)
 
+- Create a basic auth loki user entry 
+
+```
+sudo htpasswd -c /loki/.htpasswd loki
+```
+
 - Edit .env to have the following entries
 
 ```
@@ -61,6 +67,12 @@ SUBDOMAINS=grafana.<server-address>,loki.<server-address>
 
 
 ## Run project secured with real certs
+
+- Create  loki user entry
+
+```
+sudo htpasswd -c /loki/.htpasswd loki
+```
 
 - Edit .env to have the following entries
 
