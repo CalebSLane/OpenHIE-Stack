@@ -42,16 +42,14 @@
 
 ## Run project unsecured
 
-``` sudo instant project init && sudo instant project up --env-var INSECURE_PORTS=3100:3100```
+```sudo instant project init && sudo instant project up --env-var INSECURE_PORTS=3100:3100```
 
 
 ## Run project secured with [staging certs](https://letsencrypt.org/docs/staging-environment/)
 
 - Create a basic auth loki user entry 
 
-```
-sudo htpasswd -c /loki/.htpasswd loki
-```
+```sudo htpasswd -c /loki/.htpasswd loki```
 
 - Edit .env to have the following entries
 
@@ -63,16 +61,14 @@ SUBDOMAINS=grafana.<server-address>,loki.<server-address>
 ```
 - init project
   
-``` sudo instant project init --env-file .env ```
+```sudo instant project init --env-file .env```
 
 
 ## Run project secured with real certs
 
 - Create  loki user entry
 
-```
-sudo htpasswd -c /loki/.htpasswd loki
-```
+```sudo htpasswd -c /loki/.htpasswd loki```
 
 - Edit .env to have the following entries
 
@@ -82,10 +78,13 @@ STAGING=false
 RENEWAL_EMAIL=<email>
 DOMAIN_NAME=<server-address>
 SUBDOMAINS=grafana.<server-address>,loki.<server-address>
+
+GF_SECURITY_ADMIN_PASSWORD=<grafana-admin-password>
+MO_SECURITY_ADMIN_PASSWORD=<minio-data-store-password>
 ```
 - init project
   
-``` sudo instant project init --env-file .env ```
+```sudo instant project init --env-file .env```
 
 
 # Connecting Docker logging from remote machines
@@ -100,11 +99,7 @@ SUBDOMAINS=grafana.<server-address>,loki.<server-address>
 
 ### Specifying in command line
 
-```
-docker run --log-driver=loki 
-    --log-opt loki-url="https://<user_id>:<password>@<central-logging-server-address>/loki/api/v1/push" \
-    <image>
-```
+```docker run --log-driver=loki --log-opt loki-url="https://<user_id>:<password>@<central-logging-server-address>/loki/api/v1/push" <image>```
 
 
 ### Specifying in compose
